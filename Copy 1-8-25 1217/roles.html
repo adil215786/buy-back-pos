@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roles Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        // Dynamically load the navigation bar
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('nav.html')
+                .then(response => response.text())
+                .then(data => {
+                    const navContainer = document.createElement('div');
+                    navContainer.innerHTML = data;
+                    document.body.insertBefore(navContainer.firstChild, document.body.firstChild);
+                })
+                .catch(error => console.error('Error loading navigation menu:', error));
+        });
+    </script>
+</head>
+<body class="bg-gray-100">
+    <!-- Loading Spinner -->
+    <div id="loading-spinner" class="flex items-center justify-center h-screen bg-gray-100">
+        <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="hidden">
+        <div id="roles-root"></div>
+    </div>
+
+    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.min.js"></script>
+    <script type="text/babel" src="roles.js"></script>
+
+    <script>
+        // Hide loading spinner and show content once the page is fully loaded
+        window.addEventListener('load', () => {
+            document.getElementById('loading-spinner').style.display = 'none';
+            document.getElementById('main-content').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>

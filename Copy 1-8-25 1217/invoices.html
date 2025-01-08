@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoices</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('nav.html')
+                .then(response => response.text())
+                .then(data => {
+                    const navContainer = document.createElement('div');
+                    navContainer.innerHTML = data;
+                    document.body.insertBefore(navContainer.firstChild, document.body.firstChild);
+                })
+                .catch(error => console.error('Error loading navigation menu:', error));
+        });
+    </script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6 text-green-600 text-center">Invoices</h1>
+
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex space-x-4">
+                <input type="date" id="dateFilterStart" class="border rounded px-3 py-2 text-sm">
+                <input type="date" id="dateFilterEnd" class="border rounded px-3 py-2 text-sm">
+            </div>
+            <button id="exportButton" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 text-sm">Export</button>
+        </div>
+
+        <div class="bg-white shadow-md rounded overflow-hidden">
+            <table class="w-full border-collapse border border-gray-300 text-xs text-center">
+                <thead class="bg-gray-200 text-gray-600 uppercase">
+                    <tr id="sortableHeaders">
+                        <th class="py-2 px-2 border border-gray-300 cursor-pointer">Invoice #</th>
+                        <th class="py-2 px-2 border border-gray-300 cursor-pointer">Date</th>
+                        <th class="py-2 px-2 border border-gray-300 cursor-pointer">Time</th>
+                        <th class="py-2 px-2 border border-gray-300 cursor-pointer">Product Name</th>
+                        <th class="py-2 px-2 border border-gray-300 cursor-pointer">Customer Name</th>
+                        <th class="py-2 px-2 border border-gray-300 cursor-pointer">Buy Price</th>
+                        <th class="py-2 px-2 border border-gray-300">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="invoicesTableBody" class="divide-y divide-gray-200 text-gray-700"></tbody>
+            </table>
+        </div>
+
+        <div class="mt-4 text-center">
+            <p id="totalAmount" class="text-sm font-bold">Total Amount: $0.00</p>
+            <p id="totalInvoices" class="text-sm font-bold">Total Invoices: 0</p>
+        </div>
+
+        <script src="invoices.js"></script>
+    </div>
+</body>
+</html>
