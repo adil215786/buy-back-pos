@@ -6,47 +6,18 @@
     <title>Product Details</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <style>
-        /* Reduce all text to smaller sizes except title */
-        label,
-        input,
-        textarea,
-        select,
-        .form-group label,
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
+        label, input, textarea, select, .form-group label, .form-group input, .form-group textarea, .form-group select {
             font-size: 12px;
         }
-
-        /* Smaller font size for eBay Market Analysis section */
-        .ebay-heading {
-            font-size: 10px;
-            text-align: center;
-            color: #007bff;
-            font-weight: bold;
-        }
-
-        .table-auto td {
-            font-size: 10px;
-        }
-
-        .separator {
-            border-top: 2px solid #ddd;
-            margin: 20px 0;
-        }
-
-        .hidden {
-            display: none;
-        }
+        .ebay-heading { font-size: 10px; text-align: center; color: #007bff; font-weight: bold; }
+        .table-auto td { font-size: 10px; }
+        .separator { border-top: 2px solid #ddd; margin: 20px 0; }
+        .hidden { display: none; }
     </style>
     <script>
-        // Dynamically load the navigation menu
         document.addEventListener('DOMContentLoaded', function () {
             fetch('nav.html')
-                .then(response => {
-                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                    return response.text();
-                })
+                .then(response => response.text())
                 .then(data => {
                     const navContainer = document.createElement('div');
                     navContainer.innerHTML = data;
@@ -57,17 +28,11 @@
     </script>
 </head>
 <body class="bg-gray-100">
-
-    <!-- Dynamic navigation will load here -->
     <div id="nav-placeholder"></div>
-
     <div class="container mx-auto px-4 py-8">
-        <!-- Centered green title -->
         <h1 class="text-3xl font-bold mb-6 text-green-600 text-center">Product Details</h1>
-
         <div class="card bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <form id="buyBackForm">
-                <!-- Product Information Section -->
                 <h2 class="text-xl font-bold mb-4" style="font-size: 12px;">Product Information</h2>
                 <div class="form-row mb-4">
                     <div class="form-group">
@@ -79,10 +44,7 @@
                         <textarea id="productDescription" class="w-full border rounded px-3 py-2" placeholder="Enter product description"></textarea>
                     </div>
                 </div>
-
                 <div class="separator"></div>
-
-                <!-- eBay Market Analysis Section -->
                 <h2 class="ebay-heading">eBay Market Analysis</h2>
                 <div class="overflow-x-auto">
                     <table class="table-auto w-full border-collapse border border-gray-300">
@@ -116,10 +78,7 @@
                         </tbody>
                     </table>
                 </div>
-
                 <div class="separator"></div>
-
-                <!-- Pricing and Grade Level Section -->
                 <div class="form-row mb-4">
                     <div class="form-group">
                         <label for="gradeLevel" class="block text-gray-700">Grade Level</label>
@@ -135,13 +94,10 @@
                         <input type="number" id="buyPrice" class="w-full border rounded px-3 py-2" step="0.01" placeholder="Enter buy price" required>
                     </div>
                 </div>
-
-                <!-- Submit Button -->
                 <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-700 mt-4">Next: Customer Intake</button>
             </form>
         </div>
     </div>
-
     <script src="buy-back.js"></script>
 </body>
 </html>
