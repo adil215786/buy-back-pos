@@ -94,53 +94,45 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    // Handle form submission
-    const buyBackForm = document.getElementById('buyBackForm');
-    if (buyBackForm) {
-        buyBackForm.addEventListener('submit', async function(e) {
-            e.preventDefault();
+  // Handle form submission
+const buyBackForm = document.getElementById('buyBackForm');
+if (buyBackForm) {
+    buyBackForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-            // Get form data
-            const productName = document.getElementById('productName').value;
-            const productDescription = document.getElementById('productDescription').value;
-            const gradeLevel = document.getElementById('gradeLevel').value;
-            const buyPrice = parseFloat(document.getElementById('buyPrice').value);
-            const ebaySearchUrl = document.getElementById('viewEbayListings')?.href || '';
+        // Get form data
+        const productName = document.getElementById('productName').value;
+        const productDescription = document.getElementById('productDescription').value;
+        const gradeLevel = document.getElementById('gradeLevel').value;
+        const buyPrice = parseFloat(document.getElementById('buyPrice').value);
+        const ebaySearchUrl = document.getElementById('viewEbayListings')?.href || '';
 
-            // Get images
-            const productFront = document.getElementById('productFront')?.files[0];
-            const productBack = document.getElementById('productBack')?.files[0];
-            const productOther = document.getElementById('productOther')?.files;
+        // Validate required fields
+        if (!productName || !gradeLevel || !buyPrice) {
+            alert('Please fill out all required fields.');
+            return;
+        }
 
-            // Validate required fields
-            if (!productName || !gradeLevel || !buyPrice) {
-                alert('Please fill out all required fields.');
-                return;
-            }
+        // Prepare product data for customer intake
+        const productData = {
+            productName,
+            productDescription,
+            gradeLevel,
+            buyPrice,
+            ebaySearchUrl,
+            averagePrice: parseFloat(document.getElementById('analysisAveragePrice').textContent.replace('$', '') || 0),
+            listingsAnalyzed: document.getElementById('analysisListings').textContent || '',
+            buyPrice40: parseFloat(document.getElementById('analysisBuyPrice40').textContent.replace('$', '') || 0),
+            buyPrice30: parseFloat(document.getElementById('analysisBuyPrice30').textContent.replace('$', '') || 0)
+        };
 
-            // Prepare product data for customer intake
-            const productData = {
-                productName,
-                productDescription,
-                gradeLevel,
-                buyPrice,
-                ebaySearchUrl,
-                averagePrice: parseFloat(document.getElementById('analysisAveragePrice').textContent.replace('$', '') || 0),
-                listingsAnalyzed: document.getElementById('analysisListings').textContent || '',
-                buyPrice40: parseFloat(document.getElementById('analysisBuyPrice40').textContent.replace('$', '') || 0),
-                buyPrice30: parseFloat(document.getElementById('analysisBuyPrice30').textContent.replace('$', '') || 0),
-                productFront: processImageFile(productFront),
-                productBack: processImageFile(productBack),
-                productOther: productOther ? Array.from(productOther).map(processImageFile) : []
-            };
+        // Store product data in localStorage for customer intake page
+        localStorage.setItem('pendingProductData', JSON.stringify(productData));
 
-            // Store product data in localStorage for customer intake page
-            localStorage.setItem('pendingProductData', JSON.stringify(productData));
-
-            // Redirect to customer intake page
-            window.location.href = 'customer-intake.html';
-        });
-    }
+        // Redirect to customer intake page
+        window.location.href = `${window.location.origin}/buy-back-pos/customer-intake.html`;
+    });
+}
 
     // Update transaction log
     function updateTransactionLog(searchTerm = '') {
